@@ -28,23 +28,19 @@ def min_length(n):
   # Base case: 1 only needs a single 1
   dp[1] = 1
 
-  # Fill array using + operator
   for i in range(2, n + 1):
-    # Try all possible pairs (j, i -j) where j < i
-    for j in range(1, int(math.sqrt(i)) + 1):
-      dp[i] = min(dp[i], dp[j] + dp[i - j])
+    # Checks addition: splits into 1 + (i - 1)
+    dp[i] = min(dp[i], 1 + dp[i-1])
 
-  # Fill array using * operator
-  for i in range(2, n + 1):
-    # Try all possible pairs (j, k) where j * k = i
-    for j in range(1, int(math.sqrt(i) + 1)):
+    # Checks multiplication: splits into j * k where j <= sqrt(i)
+    for j in range(1, int(math.sqrt(i)) + 1):
       if i % j == 0:
         k = i // j
         dp[i] = min(dp[i], dp[j] + dp[k])
 
-  # Returns minimum number as long as the result has changed. Otherwise, return -1
+  # Returns minimum number as long as dp[n] has changed. Otherwise, return -1
   return dp[n] if dp[n] != float("inf") else -1
 
 if __name__ == "__main__":
   # this should print out 5
-  print(min_length(6))
+  print(min_length(7))
