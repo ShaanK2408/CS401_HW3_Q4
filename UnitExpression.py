@@ -31,7 +31,7 @@ def min_length(n):
   # Fill array using + operator
   for i in range(2, n + 1):
     # Try all possible pairs (j, i -j) where j < i
-    for j in range(1, (i // 2) + 1):
+    for j in range(1, int(math.sqrt(i)) + 1):
       dp[i] = min(dp[i], dp[j] + dp[i - j])
 
   # Fill array using * operator
